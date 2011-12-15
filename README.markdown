@@ -8,16 +8,18 @@ You can currently find Google+ Flood-It at
           http://www.google.com/ig/directory?type=gadgets&url=www.labpixies.com/campaigns/flood/flood.xml
 
 To invoke the code, just say
-> `sh floodit-convert.sh` *<myfile>*
-where *<myfile>* can be any PNG (preferred) or JPG (or any
-of a number of other formats, really) image of a Flood-It
-board.
+> `sh floodit-convert.sh` *<size>* *<myfile>*
+The current size values for small, medium and large Google+
+Flood-It boards are 14, 21 and 28 squares: the code has no
+heuristic for figuring this out, so tell it the right thing.
+The board image file *<myfile>* can be any PNG (preferred)
+or JPG (or any of a number of other formats, really) image
+of a Flood-It board.
 
-The code is full of Google Flood-It specific
-assumptions. The board is assumed to be 14x14 squares.  The
-code has a bunch of fairly narrow heuristics to detect
-exactly six square colors, which are assumed to be (r)ed,
-(g)reen, (b)lue, (c)yan, (m)agenta and (y)ellow.
+The code has many Google Flood-It specific assumptions. In
+particular, the code has a bunch of fairly narrow heuristics
+to detect exactly six square colors, which are assumed to be
+(r)ed, (g)reen, (b)lue, (c)yan, (m)agenta and (y)ellow.
 
 The code makes heavy use of a modern version of NETPBM, so
 you need to have that installed. If the code complains, the

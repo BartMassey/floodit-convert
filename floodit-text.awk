@@ -19,10 +19,11 @@ NR == 1 {
     next
 }
 !dims {
-    if ($1 != "14" || $2 != "14") {
+    if ($1 != $2 || ($2 != "14" && $2 != "21" && $2 != "28")) {
         printf "floodit-text: bad dims: %sx%s\n", $1, $2 >"/dev/stderr"
         exit(1)
     }
+    size = $1 + 0
     dims = 1
     next
 }
@@ -40,12 +41,12 @@ NR == 1 {
     next
 }
 END {
-    if (npix != 14 * 14 * 3) {
+    if (npix != size * size * 3) {
         printf "floodit-text: bad component count: %d\n", npix >"/dev/stderr"
         exit 1
     }
-    for (j = 0; j < 14; j++) {
-        for (i = 0; i < 14; i++) {
+    for (j = 0; j < size; j++) {
+        for (i = 0; i < size; i++) {
             r = c[opix++] + 0
             g = c[opix++] + 0
             b = c[opix++] + 0

@@ -7,20 +7,21 @@
 # to an ASCII representation for search.
 #   http://www.google.com/ig/directory?type=gadgets&url=
 #   www.labpixies.com/campaigns/flood/flood.xml
-if [ $# -ne 1 ]
+if [ $# -ne 2 ]
 then
-    echo "floodit-convert: usage: floodit-convert <board-image>" >&2
+    echo "floodit-convert: usage: floodit-convert <board-size> <board-image>" >&2
     exit 1
 fi
-BASENAME="`echo \"$1\" | sed 's/\.[^\.]*$//'`"
+SIZE="$1"
+BASENAME="`echo \"$2\" | sed 's/\.[^\.]*$//'`"
 OUTFILE=floodit-"$BASENAME".txt
 TMP="/tmp/floodit-convert-$$.ppm"
 trap "rm -f $TMP" 0 1 2 3 15
 # Quantize and crop the board
-anytopnm $1 |
+anytopnm "$2" |
 pnmquant -center -nofs 7 |
 pnmcrop >$TMP
-# Figure out the board scale (better be square and mod 14)
+# Figure out the board scale (better be square and mod $SIZE)
 pamfile $TMP |
 sed 's/^.* \([0-9]*\) by \([0-9]*\) .*$/\1 \2/' | (
     read X Y
@@ -29,13 +30,13 @@ sed 's/^.* \([0-9]*\) by \([0-9]*\) .*$/\1 \2/' | (
         echo "floodit-convert: non-square board (${X}x${Y})" >&2
         exit 1
     fi
-    F=`expr $X '%' 14`
+    F=`expr $X '%' $SIZE`
     if [ $F -ne 0 ]
     then
-        echo "floodit-convert: board size not multiple of 14 ($X)" >&2
+        echo "floodit-convert: board size not multiple of $SIZE ($X)" >&2
         exit 1
     fi
-    W=`expr $X '/' 14`
+    W=`expr $X '/' $SIZE`
     pamscale -reduce $W $TMP ) |
 pamtopnm -plain |
 awk -f floodit-text.awk >"$OUTFILE"
