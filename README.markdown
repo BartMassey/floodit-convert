@@ -8,11 +8,13 @@ You can currently find Google+ Flood-It at
           http://www.google.com/ig/directory?type=gadgets&url=www.labpixies.com/campaigns/flood/flood.xml
 
 To invoke the code, just say
-> `sh floodit-convert.sh` *<size>* *<myfile>*
-The current size values for small, medium and large Google+
+
+> `sh floodit-convert.sh` *size* *board-image*
+
+The current *size* values for small, medium and large Google+
 Flood-It boards are 14, 21 and 28 squares: the code has no
 heuristic for figuring this out, so tell it the right thing.
-The board image file *<myfile>* can be any PNG (preferred)
+The *board-image* file can be any PNG (preferred)
 or JPG (or any of a number of other formats, really) image
 of a Flood-It board.
 
@@ -38,4 +40,4 @@ Manifest:
 * `board.png`: Sample board screenshot.
 * `floodit-board.txt`: Output of `floodit-convert.sh` on sample screenshot.
 * `COPYING`: License information.
-* `README`: This README.
+* `README.markdown`: This README.
